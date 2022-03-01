@@ -1,3 +1,4 @@
+// eslint-disable-next-line jsdoc/no-missing-syntax
 const express = require('express');
 const winston = require("./config/winston");
 const expressJSDocSwagger = require('express-jsdoc-swagger');
