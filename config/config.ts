@@ -1,6 +1,6 @@
-const dotenv = require('dotenv');
+const config = require('dotenv');
 
-dotenv.config({
+config.config({
   path: require('path').join(__dirname, '..', `${process.env.NODE_ENV}.env`),
 });
 
