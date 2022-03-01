@@ -1,7 +1,7 @@
-// eslint-disable-next-line jsdoc/no-missing-syntax
-const express = require('express');
+import express, { Request, Response } from 'express';
 const winston = require("./config/winston");
 const expressJSDocSwagger = require('express-jsdoc-swagger');
+const config = require('./config/dotenv');
 
 const options = {
   info: {
@@ -29,40 +29,45 @@ const options = {
 };
 
 const app = express();
-const port = 3000;
 
 expressJSDocSwagger(app)(options);
-require('dotenv').config();
 
 // Body parsing Middleware
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-app.get('/', (req: any, res: any) => {
-  winston.debug(`Error occurred while doing initial configuration`);
-  return res.status(200).send({
-    message: 'hello world'
-  })
+/**
+ * @tags Check health
+ */
+
+/**
+ * GET /
+ * @summary Server Health
+ * @tags Check health
+ * @return 200 - ok - application/json
+ */
+app.get('/', (req: Request, res: Response) => {
+  res.send('ok')
 })
 
 /**
- * GET /api/v1/albums
- * @summary This is the summary of the endpoint
+ * GET /api/v1/notes
+ * @summary return all users notes
  * @tags Check health
- * @return {array<Song>} 200 - success response - application/json
- * @example response - 200 - success response example
- * [
- *   {
- *     "title": "Bury the light",
- *     "artist": "Casey Edwards ft. Victor Borba",
- *     "year": 2020
- *   }
- * ]
+ * @return 200 - success response - application/json
  */
-app.get('/api/v1/albums', (req: any, res: any) => res.json({
+app.get('/api/v1/getUsers', (req: any, res: any) => res.json({
   success: true,
 }));
 
-app.listen(process.env.SERVER_PORT, (): void => {
-  winston.info(`Connected successfully on port ${port}`);
+const server = app.listen(config.PORT, config.HOST, (): void => {
+  winston.info(`Swagger Document available on http://${config.HOST}:${config.PORT}/api-docs`);
+  winston.info(`APP LISTENING ON http://${config.HOST}:${config.PORT}`);
 });
+
+process.on('SIGTERM', () => {
+  winston.info('SIGTERM signal received: closing HTTP server')
+  server.close(() => {
+    winston.info('HTTP server closed')
+  })
+})
