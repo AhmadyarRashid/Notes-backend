@@ -14,7 +14,7 @@ export class SystemService {
 
     async createUser(){
         const userRepository = getRepository(User);
-        return await userRepository.create({
+        return await userRepository.save({
             firstName: "Ankur",
             lastName: "Bhai",
             isActive: true,
