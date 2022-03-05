@@ -1,0 +1,24 @@
+{
+  "family": "service-boilerplate",
+  "executionRoleArn": "arn:aws:iam::897007287276:role/ecsTaskExecutionRole",
+  "networkMode": "awsvpc",
+  "containerDefinitions": [
+    {
+      "name": "service-boilerplate",
+      "image": "897007287276.dkr.ecr.us-east-1.amazonaws.com/service-boilerplate:latest",
+      "portMappings": [
+        {
+          "containerPort": 3000,
+          "hostPort": 3000,
+          "protocol": "tcp"
+        }
+      ],
+      "essential": true
+    }
+  ],
+  "requiresCompatibilities": [
+    "FARGATE"
+  ],
+  "cpu": "512",
+  "memory": "1024"
+}
