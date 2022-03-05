@@ -1,5 +1,5 @@
-import {getRepository} from "typeorm";
-import {User} from "execfn-core/lib/data/entities/identityAndAccountManagement/user";
+import { getRepository } from "typeorm";
+import { User } from "execfn-core/lib/data/entities/identityAndAccountManagement/user";
 
 
 export class SystemService {
@@ -12,17 +12,17 @@ export class SystemService {
         throw new Error('Things That Can Go Wrong, Go Wrong')
     }
 
-    createUser(){
+    async createUser(){
         const userRepository = getRepository(User);
-        userRepository.create({
-            firstName: "Ahmad",
+        return await userRepository.create({
+            firstName: "Ankur",
             lastName: "Bhai",
             isActive: true,
-        })
+        });
     }
 
     async getUserCount(){
         const userRepository = getRepository(User);
-        return userRepository.count();
+        return await userRepository.find();
     }
 }

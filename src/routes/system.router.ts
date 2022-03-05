@@ -21,3 +21,7 @@ routerTemplate.get(`${base}/crash`,(req, res) => {
 routerTemplate.get(`${base}/user`, (req, res) => {
     systemController.getUserFunctions(req,res)
 })
+
+routerTemplate.post(`${base}/user`, (req, res) => {
+  systemController.createUserFunction(req,res)
+})

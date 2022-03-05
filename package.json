@@ -9,8 +9,8 @@
   "private": true,
   "scripts": {
     "build": "tsc --project ./",
-    "start": "export NODE_ENV=production && node dist/server.js",
-    "dev": "export NODE_ENV=development && ts-node-dev src/server.ts",
+    "start": "node dist/server.js",
+    "dev": "ts-node-dev src/server.ts",
     "lint": "yarn run eslint . --ext .js,.jsx,.ts,.tsx ",
     "test": "jest"
   },

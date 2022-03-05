@@ -15,15 +15,14 @@ export class SystemController {
         res.status(200).send({})
     }
 
-    createUserFunction(req: Request, res: Response){
-        systemService.createUser()
+    createUserFunction = async (req: Request, res: Response) => {
+        const insertedUser = await systemService.createUser()
+        console.log(insertedUser)
         res.status(201).send({})
     }
 
-    getUserFunctions(req: Request, res: Response){
-        const userCount = systemService.getUserCount().then(
-
-        )
-
+    getUserFunctions = async (req: Request, res: Response) => {
+        const userCount = await systemService.getUserCount()
+        res.status(201).send(userCount)
     }
 }
